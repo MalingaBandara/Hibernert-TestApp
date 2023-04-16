@@ -1,44 +1,28 @@
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Environment;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AppInitializer {
 
-    public static void main(String[] args) {
-
-        StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
-
-
-        Map< String, String > databaseConfigureration = new HashMap<>();
-
-        databaseConfigureration.put(Environment.URL, "jdbc:mysql://localhost:3306/asd_1?createDatabaseIfNotExist=true");
-        databaseConfigureration.put(Environment.USER,"root");
-        databaseConfigureration.put(Environment.PASS,"spymali1021");
-        databaseConfigureration.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        databaseConfigureration.put(Environment.DIALECT, "org.hibernate.dialect.MySQL57Dialect");
-
-
-        standardServiceRegistryBuilder.applySettings(databaseConfigureration);
-
-        StandardServiceRegistry standardServiceRegistry = standardServiceRegistryBuilder.build();
-
-        MetadataSources metadataSources = new MetadataSources( standardServiceRegistry );
-        Metadata metadata = metadataSources.getMetadataBuilder().build();
-
-        //====
-        SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
-        try(Session session= sessionFactory.openSession()){
-            Object result =
-                    session.createNativeQuery("SELECT NOW()").getSingleResult();
-            System.out.println(result);
+    public static void main (String[]args){
+            printMySQlVersion();
+            printMySQlDateAndTime();
         }
 
+        private static void printMySQlVersion () {
+
+            try(Session session= HibernateUtill.getSessionFactory().openSession()){
+                Object result =
+                        session.createNativeQuery("SELECT VERSION()").getSingleResult();
+                System.out.println(result);
+            }
+        }
+        private static void printMySQlDateAndTime () {
+
+            try(Session session=  HibernateUtill.getSessionFactory().openSession()){
+                Object result =
+                        session.createNativeQuery("SELECT NOW()").getSingleResult();
+                System.out.println(result);
+            }
+
+        }
     }
-}
+
