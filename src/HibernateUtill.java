@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class HibernateUtill {
 
-
     private static StandardServiceRegistry standardServiceRegistry;
     private static SessionFactory sessionFactory;
 
@@ -45,6 +44,5 @@ public class HibernateUtill {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-
 
 }
