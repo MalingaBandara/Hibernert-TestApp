@@ -13,5 +13,14 @@
 
     <property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+
+    <property name="show_sql">true</property> <!-- show sql which are in -->
+    <property name="format_sql">true</property> <!-- show sql format which are passing -->
+
+    <mapping class="entity.Student" /> <!-- class which we are considered -->
+
+    <mapping class="entity.Book" /> <!-- class which we are considered -->
+
+
   </session-factory>
 </hibernate-configuration>
